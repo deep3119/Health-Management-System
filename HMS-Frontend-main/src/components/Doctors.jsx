@@ -93,10 +93,10 @@ export default function UserDoctors() {
     }, 1000);
     if (data && isSuccess) {
       setDoctors(data);
-      dispatch(setDoctors({doctors:data}));
+      dispatch(setDoctors({ doctors: data }));
       // console.log(doctors);
     }
-  }, [data, isSuccess,dispatch]);
+  }, [data, isSuccess, dispatch]);
   if (isLoading) {
     return <div>Loading...</div>; // Show a loading message while fetching data
   }
@@ -106,8 +106,8 @@ export default function UserDoctors() {
   }
   return (
     <>
-    <Navbar/>
-    {loading ? (
+      <Navbar />
+      {loading ? (
         <div className="flex justify-center h-[90vh] text-center items-center">
           <ScaleLoader
             color={"#32AD94"}
@@ -118,25 +118,30 @@ export default function UserDoctors() {
           />
         </div>
       ) : (
-    <div className="doctors lg:w-[95%] lg:h-[100%] w-full h-full rounded-xl pt-2">
-      <div className="doctors-con flex flex-col items-center h-[100%] w-[100%] p-0">
-        {data.map((doctor,index) => {
-          return (
-            <div key={index} className="doctor flex lg:flex-row flex-col lg:w-[50%] w-[90%] p-2 bg-[#fffefc] rounded-lg shadow-md m-5">
-              <img src={doctor.image} alt="" className="h-[20vh] rounded-lg" />
-              <div className="lg:ml-5 p-2 flex flex-col">
-                <span className="text-xl font-bold mb-3">Dr. {doctor.firstname} {doctor.lastname}</span>
-                <span>Specialty: {doctor.speciality}</span>
-                {/* <span>Experience: 8 years</span> */}
-                <span>Education: {doctor.education}</span>
-                <span>Email: {doctor.email}</span>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>)}
-    <Footer/>
+        <div className="doctors lg:w-[95%] lg:h-[100%] w-full h-full rounded-xl pt-2">
+          <div className="doctors-con flex flex-col items-center h-[100%] w-[100%] p-0">
+            {data.map((doctor, index) => {
+              return (
+                <div key={index} className="doctor flex lg:flex-row flex-col lg:w-[50%] w-[90%] p-2 bg-[#fffefc] rounded-lg shadow-md m-5">
+                  {/* <img src={doctor.image} alt="Doctor images" className="h-[20vh] rounded-lg" /> */}
+                  <img
+                    src={`${process.env.REACT_APP_BACKEND_URL}${doctor.image}`}
+                    alt="Doctor images"
+                    className="h-[20vh] rounded-lg"
+                  />
+                  <div className="lg:ml-5 p-2 flex flex-col">
+                    <span className="text-xl font-bold mb-3">Dr. {doctor.firstname} {doctor.lastname}</span>
+                    <span>Specialty: {doctor.speciality}</span>
+                    {/* <span>Experience: 8 years</span> */}
+                    <span>Education: {doctor.education}</span>
+                    <span>Email: {doctor.email}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>)}
+      <Footer />
     </>
   );
 }
